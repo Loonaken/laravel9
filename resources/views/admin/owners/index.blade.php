@@ -12,7 +12,7 @@
                   <section class="text-gray-600 body-font">
                     <div class="container px-5 py-4 mx-auto">
                       <x-flash-message status="info" />
-                      
+
                       <div class="flex justify-end mb-4">
                       <button onclick="location.href='{{route('admin.owners.create')}}'" class="text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded text-lg">新規登録</button>
                       </div>
@@ -37,8 +37,8 @@
                               <td class="px-4 py-3">                  {{$owner->created_at->diffForHumans()}}
                               </td>
 
-                              <td class="w-10 text-center">
-                                <input name="plan" type="radio">
+                              <td class="w-40 mt-1 flex  justify-end">
+                                <button onclick="location.href='{{route('admin.owners.edit', ['owner'=>$owner->id])}}'" type="submit" class="flex mx-auto text-white bg-yellow-500 border-0 py-2 px-2 focus:outline-none hover:bg-yellow-600 rounded text-base">編集する</button>
                               </td>
                             </tr>
                             @endforeach
