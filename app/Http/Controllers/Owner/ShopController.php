@@ -36,7 +36,6 @@ class ShopController extends Controller
         public function index()
         {
             // $ownerId = Auth::id();
-            // phpinfo();
             $shops = Shop::where('owner_id', Auth::id())->get();
 
             return view('owner.shops.index', compact('shops'));
