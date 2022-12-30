@@ -105,7 +105,7 @@ class OwnersController extends Controller
 
         return redirect()
         ->route('admin.owners.index')
-        ->with(['message'=> 'オーナー登録が完了しました。']);
+        ->with(['message'=> 'オーナー登録が完了しました。' , 'status'=>'info']);
 
     }
 
@@ -149,7 +149,7 @@ class OwnersController extends Controller
 
         return redirect()
         ->route('admin.owners.index')
-        ->with(['message'=>'オーナー情報を更新しました。']);
+        ->with(['message'=>'オーナー情報を更新しました。', 'status'=>'info']);
     }
 
     /**
@@ -164,9 +164,7 @@ class OwnersController extends Controller
 
         return redirect()
         ->route('admin.owners.index')
-        ->with(
-            ['message'=>'オーナー情報を削除しました。'],
-            ['status'=>'error']);
+        ->with(['message'=>'オーナー情報を削除しました。' , 'status'=>'error'],);
     }
     public function expiredOwnerIndex(){
         $expiredOwners = Owner::onlyTrashed()->get();
