@@ -2,7 +2,7 @@
     if($type === 'shops'){
       $path = 'storage/shops/';
     }
-    if($type === 'images'){
+    if($type === 'products'){
       $path = 'storage/products/';
     }
 
@@ -11,9 +11,9 @@
 
 <div>
   @if (empty($filename))
-  しっかりと関数名とreturn関数名が一致しているかチェックする
+  {{-- しっかりと関数名とreturn関数名が一致しているかチェックする --}}
   <img src="{{ asset('images/no_image.jpg')}}">
   @else
-  <img src="{{asset('storage/shops/' . $filename)}}">
+  <img src="{{ asset($path . $filename)}}">
   @endif
 </div>
