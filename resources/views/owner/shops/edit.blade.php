@@ -30,7 +30,6 @@
                         <x-thumbnail :filename="$shop->filename" type="shops" />
                         </div>
                       </div>
-                      </div>
                       <div class="p-2 mb-2 w-full lg:w-2/3 mx-auto">
                         <div class="relative">
                           <label for="image" class="leading-7 text-sm text-gray-600">画像</label>
