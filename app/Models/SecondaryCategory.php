@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\PrimaryCategory;
 
 
+
 class SecondaryCategory extends Model
 {
     use HasFactory;
