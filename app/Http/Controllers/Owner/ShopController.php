@@ -50,6 +50,12 @@ class ShopController extends Controller
         public function update(UploadImageRequest $request, $id)
         {
 
+            $request->validate([
+                'name'=>'required|string|max:50',
+                'information'=>'required|string|max:1000',
+                'is_selling'=>'required',
+            ]);
+
             $imageFile = $request->image; //一時保存
             if(!is_null($imageFile) && $imageFile->isValid())
             {
