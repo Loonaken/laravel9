@@ -7,11 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Image;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UploadImageRequest;
 use App\Services\ImageService;
-
-
-
+use Ramsey\Uuid\Rfc4122\NilUuid;
 
 class ImageController extends Controller
 {
@@ -112,6 +111,20 @@ class ImageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        {
+            $image = Image::findOrFail($id);
+            $filePath = 'public/products/' . $image->filename;
+            // storageにある画像データを削除する必要があるため、パスを指定する。
+            // 画像はImageであれば、Productsの配下にあるため、
+            // 第一引数にPublic/products/ に . で繋ぎ、 filenameでパスを完成させる
+            if(Storage::exists($filePath)){
+                Storage::delete($filePath);
+            }
+            Image::findOrFail($id)->delete();
+
+            return redirect()
+            ->route('owner.images.index')
+            ->with(['message'=>'画像を削除しました。' , 'status'=>'error'],);
+        }
     }
 }
