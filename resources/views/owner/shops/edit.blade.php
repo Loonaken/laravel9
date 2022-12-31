@@ -10,7 +10,7 @@
           <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
               <div class="p-6 bg-white border-b border-gray-200">
                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
-                <form method="POST" action="{{route('owner.shops.update', ['shop'=>$shop->id])}}" enctype="multipart/form-data">
+                <form method="POST" action="{{route('owner.shops.update', ['shop' => $shop->id])}}" enctype="multipart/form-data">
                     @csrf
                     <div class="my-4">
                       <div class="p-2 mb-2 w-full lg:w-2/3 mx-auto">
@@ -22,14 +22,13 @@
                       <div class="p-2 mb-2 w-full lg:w-2/3 mx-auto">
                         <div class="relative">
                           <label for="information" class="leading-7 text-sm text-gray-600">店舗情報 *必須</label>
-                          <textarea id="information" name="name" rows="10" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-white focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{$shop->information}}</textarea>
+                          <textarea id="information" name="information" rows="10" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-white focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{$shop->information}}</textarea>
                         </div>
                       </div>
                       <div class="p-2 mb-2 w-1/3 md:w-1/4 mx-auto">
                         <div class="relative">
-                        <x-shop-thumbnail :filename="$shop->filename" />
+                        <x-thumbnail :filename="$shop->filename" type="shops" />
                         </div>
-                      </div>
                       </div>
                       <div class="p-2 mb-2 w-full lg:w-2/3 mx-auto">
                         <div class="relative">

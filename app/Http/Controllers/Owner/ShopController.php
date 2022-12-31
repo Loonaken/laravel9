@@ -36,7 +36,6 @@ class ShopController extends Controller
         public function index()
         {
             // $ownerId = Auth::id();
-            // phpinfo();
             $shops = Shop::where('owner_id', Auth::id())->get();
 
             return view('owner.shops.index', compact('shops'));
@@ -50,16 +49,17 @@ class ShopController extends Controller
 
         public function update(UploadImageRequest $request, $id)
         {
+
             $request->validate([
-                'name' => 'required|string|max:50',
-                'information' => 'required|string|max:1000',
-                'is_selling' => 'required',
+                'name'=>'required|string|max:50',
+                'information'=>'required|string|max:1000',
+                'is_selling'=>'required',
             ]);
 
             $imageFile = $request->image; //一時保存
-            if(!is_null($imageFile) && $imageFile->isValid()){
-
-            $fileNameToStore = ImageService::upload($imageFile, 'shops');
+            if(!is_null($imageFile) && $imageFile->isValid())
+            {
+                $fileNameToStore = ImageService::upload($imageFile, 'shops');
             }
 
             $shop = Shop::findOrFail($id);
@@ -72,9 +72,9 @@ class ShopController extends Controller
 
             $shop->save();
 
-            return redirect()->route('owner.shops.index')
-            ->with(['message'=> '店舗情報の登録が完了しました。' , 'status'=>'info']);
+                return redirect()->route('owner.shops.index')
+                ->with(['message'=> '店舗情報の登録が完了しました。' , 'status'=>'info']);
 
-        }
 
+            }
 }
