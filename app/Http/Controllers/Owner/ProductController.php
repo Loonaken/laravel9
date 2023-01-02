@@ -73,6 +73,9 @@ class ProductController extends Controller
     }
 
     public function store(ProductRequest $request)
+    // Validation を別ファイルで管理しているため、それを使用するために
+    // 冒頭に use でPath指定をし、
+    // このStoreメソッドでProductRequestで用いることを宣言する
     {
 
         try {
@@ -101,6 +104,7 @@ class ProductController extends Controller
             Stock::create([
                 'product_id'=>$product->id,
                 'type'=>1,
+
                 // 入庫在庫を増やすカラムとしてtypeを入れる
                 'quantity'=>$request->quantity
             ]);
@@ -155,6 +159,7 @@ class ProductController extends Controller
 
         $product = Product::findOrFail($id);
         $quantity = Stock::where('product_id', $product->id)
+        // Where の引数で$product->product_idと絶対書かない
                 ->sum('quantity');
 
         if($request->current_quantity !== $quantity){
@@ -164,9 +169,18 @@ class ProductController extends Controller
             ->route('owner.products.edit' , ['product'=> $id])
             ->with(['message'=> '在庫数が変更されています。再度確認してください。' , 'status'=>'error']);
 
+            // Else文を書いているにも関わらず、ずっとIf文内の処理しか
+            // 実行されない場合、If文の条件内の変数に問題があることを確認しなければならない
+            // そして使われている変数がどこから派生しているのかを辿る！
+            // このIf文であれば、$quantityに当初問題が発生しており、
+            // $quantityの変数を定義していたIf文前の
+            // $quantity = Stock::where('product_id', $product->id)
+            // メソッド定義が当初おかしかった
+
         } else {
             try {
                 DB::transaction(function()use($request, $product){
+                    // 変数の＄productをUse引数に追加する
 
                     $product->name = $request->name;
                     $product->information = $request->information;
@@ -174,6 +188,7 @@ class ProductController extends Controller
                     $product->sort_order = $request->sort_order;
                     $product->shop_id = $request->shop_id;
                     $product->secondary_category_id = $request->category;
+                    // ↑の行の挿入する変数は絶対にCategoryと間違えないこと
                     $product->image1 = $request->image1;
                     $product->image2 = $request->image2;
                     $product->image3 = $request->image3;
@@ -182,14 +197,15 @@ class ProductController extends Controller
 
                     $product->save();
 
-                    if($request->type === '1'){
+                    if($request->type === \Constant::PRODUCT_LIST['add']){
                         $newQuantity = $request->quantity;
                     }
-                    if($request->type === '2'){
+                    if($request->type === \Constant::PRODUCT_LIST['reduce']){
                         $newQuantity = $request->quantity * -1;
                     }
 
                 Stock::create([
+                    // 毎回新しくデータ作成をする
                     'product_id' => $product->id,
                     'type'=> $request->type,
                     'quantity'=> $newQuantity

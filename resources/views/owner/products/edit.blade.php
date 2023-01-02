@@ -116,9 +116,9 @@
 
                       <div class="p-2 mb-2 w-full lg:w-2/3 mx-auto ">
                         <div class="relative flex justify-around">
-                          <div class="mr-2"><input type="radio" name="is_selling" value="1" @if ($product->is_selling === 1 ){ checked } @endif >
+                          <div class="mr-2"><input type="radio" name="is_selling" value="{{ \Constant::PRODUCT_LIST['add']}}" @if ($product->is_selling === 1 ){ checked } @endif >
                             販売中</div>
-                            <div class="mr-2"><input type="radio" name="is_selling" value="0" @if ($product->is_selling === 0 ){ checked } @endif >
+                            <div class="mr-2"><input type="radio" name="is_selling" value="{{\Constant::PRODUCT_LIST['reduce']}}" @if ($product->is_selling === 0 ){ checked } @endif >
                               停止中</div>
                         </div>
                       </div>
