@@ -128,12 +128,20 @@
                         <button type="submit" class="flex mx-auto text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg">更新する</button>
                     </div>
                 </form>
+                <form id="delete_{{$product->id}}" method="post" action="{{route('owner.products.destroy', ['product'=>$product->id])}}">
+                  @csrf
+                  @method('delete')
+                  <div class="flex justify-center mt-16 p-4 w-full">
+                  <a href='#' data-id="{{$product->id}}" onclick="deletePost(this)" type="submit" class=" text-white bg-red-500 border-0 py-2 px-2 focus:outline-none hover:bg-red-600 rounded text-base">削除する</a>
+                </div>
+              </form>
               </div>
           </div>
       </div>
   </div>
 
   <script>
+
   'use strict'
   const images = document.querySelectorAll('.image') //全てのimageタグを取得
 
@@ -150,5 +158,12 @@
       MicroModal.close(modal); //モーダルを閉じる
     })
   })
-</script>
+
+  function deletePost(e) {
+  'use strict';
+  if (confirm('本当に削除してもいいですか?')) {
+  document.getElementById('delete_' + e.dataset.id).submit();
+  }
+  }
+  </script>
 </x-app-layout>

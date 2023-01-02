@@ -224,14 +224,12 @@ class ProductController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id)->delete();
+
+            return redirect()
+            ->route('owner.products.index')
+            ->with(['message'=>'商品を削除しました。' , 'status'=>'error'],);
     }
 }
