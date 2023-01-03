@@ -59,7 +59,7 @@
                   <div class="md:w-1/2 ml-4">
                     <h1 class="text-gray-900 mb-2 text-3xl title-font font-medium">{{$product->name}}</h1>
                     <h2 class="text-sm mb-4 title-font text-gray-500 tracking-widest">{{$product->category->name}} </h2>
-                    <p class="leading-relaxed mb-4">{{$product->information}}</p>
+                    <p class="leading-relaxed mb-4 text-center">{{$product->information}}</p>
                       <div class="flex justify-around items-center">
                         <p class="mt-1 text-lg">{{ number_format($product->price) }}
                           <span class="text-base text-gray-600">円（税込）</span>
@@ -79,8 +79,41 @@
                     </div>
                 </div>
               </div>
+              <div class="border-t mx-auto border-gray-400 my-8"></div>
+                <div class="mb-4 text-center">この商品を販売しているショップ</div>
+                <div class="mb-4 text-center">{{ $product->shop->name }}</div>
+                <div class="mb-4 text-center">
+                  @if ($product->shop->filename !== null)
+                    <img class="w-40 h-40 object-cover rounded-full mx-auto" src="{{ asset('storage/shops/' . $product->shop->filename )}}">
+                  @else
+                    <img class ="w-40 h-40 object-cover rounded-full mx-auto" src="">
+                  @endif
+                </div>
+                <div class="mb-4 text-center">
+                  <button type="button" data-micromodal-trigger="modal-1" href='javascript:;'  class=" text-white bg-gray-500 border-0 py-2 px-6 focus:outline-none hover:bg-gray-600 rounded">ショップの詳細を確認する</button>
+                </div>
           </div>
       </div>
+  </div>
+  <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+      <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+        <header class="modal__header">
+          <h2 class="text-xl text-gray-700 modal__title" id="modal-1-title">
+            {{$product->shop->name}}
+          </h2>
+          <button type="button" class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+        </header>
+        <main class="modal__content" id="modal-1-content">
+          <p>
+            {{$product->shop->information}}
+          </p>
+        </main>
+        <footer class="modal__footer">
+          <button type="button" class="modal__btn" data-micromodal-close aria-label="閉じる">閉じる</button>
+        </footer>
+      </div>
+    </div>
   </div>
   <script src="{{ mix('js/swiper.js')}}"></script>
 </x-app-layout>
