@@ -89,10 +89,10 @@ class CartController extends Controller
                     'quantity'=>$product->pivot->quantity * -1
                 ]);
             }
-            dd('test');
 
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-        $session = Stripe::Checkout::Session.create([
+
+        $session = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
             'line_items' => [$lineItems],
             'mode' => 'payment',
