@@ -15,17 +15,18 @@ class CartController extends Controller
       $itemInCart = Cart::where('product_id', $request->product_id)
         ->where('user_id', Auth::id())->first();
 
+
         if($itemInCart){
             $itemInCart->quantity += $request->quantity; //あれば数量を追加
             $itemInCart->save();
-            } else {
+        } else {
             Cart::create([ // なければ新規作成
-            'user_id' => Auth::id(),
-            'product_id' => $request->product_id,
-            'quantity' => $request->quantity
+                'user_id' => Auth::id(),
+                'product_id' => $request->product_id,
+                'quantity' => $request->quantity
             ]);
-            }
-            dd('テスト');
+        }
+        dd('テスト');
             return redirect()->route('user.cart.index');
 
     }
