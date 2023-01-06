@@ -43,6 +43,8 @@ return [
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
             'auth_mode' => null,
+            'local_domain' => env('MAIL_HOST'),
+
         ],
 
         'ses' => [
@@ -92,7 +94,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'test@test.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
