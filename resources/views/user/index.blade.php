@@ -89,7 +89,7 @@
                         {{$products->appends([
                           'sort' => \Request::get('sort'),
                           'pagination' => \Request::get('pagination')
-                        ])->glinks()}}
+                        ])->links()}}
                 </div>
             </div>
         </div>
