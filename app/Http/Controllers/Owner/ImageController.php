@@ -36,6 +36,7 @@ class ImageController extends Controller
     public function index()
     {
         $images = Image::where('owner_id', Auth::id())
+        // ログインしているオーナーIDを取得したい
         ->orderBy('updated_at','desc')
         ->paginate(20);
 
